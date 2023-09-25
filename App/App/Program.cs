@@ -1,39 +1,30 @@
 ﻿
+using App;
 using System;
 using System.Collections.Generic;
-public delegate bool NumbersFilter(int number);
+
+
+public delegate int MyDel(); 
 
 public class Program
 {
-  
-    public static IEnumerable<int> FilterNumbersByCondition(IEnumerable<int> numbers
-                                , NumbersFilter filter)
-    {
-        foreach (int number in numbers)
-              if (filter(number))
-                yield return number;
-    }
-
-
-    
     public static void Main()
     {
-        List<int> numbers = new List<int>()
-        {
-            40, 899, 7, 9, 10, 77
-        };
-        // Lambda Expression
-        // Goes To  =>
+        Customer customer = new Customer() { Id = 1, Name = "Hany" };
+        Logger log = new Logger();
+        
+        CustomerWriter wr = new CustomerWriter();
 
-        foreach (int num in FilterNumbersByCondition(numbers, i => i > 10))
-        {
-            Console.WriteLine(num);
-        } 
+        customer.AddingCustomerHandler = log.Log;
+        customer.AddingCustomerHandler += wr.WriteCustomer;
 
-        Console.WriteLine();
-        Console.WriteLine();
+        customer.AddingCustomerHandler += () =>
+            Console.WriteLine("Main Action Against Adding CUstomer");
 
-        foreach (int num in FilterNumbersByCondition(numbers, o => o %2 ==0))
-            Console.WriteLine(num);
+        customer.Add();
+
+
+       
+
     }
 }
