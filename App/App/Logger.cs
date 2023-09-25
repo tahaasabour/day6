@@ -4,8 +4,8 @@ using System;
 
 public class Logger
 {
-    public void Log()
+    public void LogCustomer(Customer cutomer)
     {
-        Console.WriteLine("Logging The Current Customer ..");
+        Console.WriteLine($"Name : {cutomer.Name}");
     }
 }
